@@ -1,0 +1,90 @@
+<div class="d-flex">
+    <div class="card shadow-sm" style="width: 45%">
+        <div class="card-header text-center text-muted">
+            <h4 class="card-title"><%= image.title %></h4>
+        </div>
+        <img
+            class="card-image"
+            style="width: 100%; height: auto"
+            src="/<%= image.name %>"
+            alt="<%= image.shortName %>"
+            width="400"
+            height="400"
+        />
+    </div>
+    <div class="mx-4" style="width: 100%">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" style="width: 8rem">
+                <span class="input-group-text">Image Title</span>
+            </div>
+            <p class="form-control mb-0"><%= image.title %></p>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" style="width: 8rem">
+                <span class="input-group-text">Uploaded On</span>
+            </div>
+            <p class="form-control mb-0">
+                <%= image.createdAt.toLocaleDateString() %>
+            </p>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" style="width: 8rem">
+                <span class="input-group-text">Uploaded By</span>
+            </div>
+            <p class="form-control mb-0"><%= image.uploader %></p>
+        </div>
+        <div class="input-group mb-3" style="height: 10rem">
+            <span class="input-group-text" style="width: 8rem"
+                >Description</span
+            >
+            <p class="form-control mb-0"><%= image.description %></p>
+        </div>
+        <% if (user.role == 'ADMIN') { %>
+        <form
+            name="singleImageForm"
+            class="mx-4"
+            action="/user/gallery/<%= image.id %>?_method=DELETE"
+            method="POST"
+            enctype="multipart/form-data"
+            style="width: 100%"
+        >
+            <a
+                class="btn btn-outline-primary"
+                href="/gallery/edit/<%= image.slug %>"
+                style="width: 33%"
+            >
+                <i class="fa fa-pencil-square-o"></i>
+                Edit Image Information
+            </a>
+            <a
+                download="<% image.shortName %>"
+                href="/<%= image.name %>"
+                class="btn btn-outline-dark"
+                style="width: 33%"
+            >
+                <i class="fa fa-download"></i>
+                Download Image
+            </a>
+            <button
+                class="btn btn-outline-danger"
+                type="submit"
+                style="width: 33%"
+            >
+                <i class="fa fa-trash"></i>
+                Remove Image
+            </button>
+        </form>
+        <% } else { %>
+        <a
+            download="<% image.shortName %>"
+            href="/<%= image.name %>"
+            class="btn btn-outline-dark"
+            style="width: 100%"
+        >
+            <i class="fa fa-download"></i>
+            Download Image
+        </a>
+        <% } %>
+    </div>
+</div>
+<noscript>You need Javascript enabled for this to work</noscript>

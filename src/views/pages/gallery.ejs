@@ -1,0 +1,98 @@
+<div class="container">
+    <div class="row mt-4">
+        <form action="/gallery" class="d-flex" method="GET">
+            <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                name="search"
+                aria-label="Search"
+                value="<%= search %>"
+            />
+            <button
+                class="btn btn-outline-dark"
+                type="submit"
+                style="width: 30%"
+            >
+                <i class="fa fa-search"></i>
+                Search Gallery
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row mt-4" data-masonry='{"percentPosition": true }'>
+    <% images.forEach((image) => { %>
+    <div class="col-md-4">
+        <% if (image.uploader == user.username) { %>
+                <a class="card-link" href="/user/gallery/<%= image.slug %>">
+            <% } else { %>
+                <a class="card-link" href="/gallery/<%= image.slug %>">
+        <% } %>
+            <div class="card mx-auto mb-4 shadow-sm card-link">
+                <div class="card-header text-center text-muted">
+                    <h4 class="card-title"><%= image.title %></h4>
+                </div>
+                <img
+                    class="card-image"
+                    style="width: 100%; height: auto"
+                    src="/<%= image.name %>"
+                    alt="<%= image.shortName %>"
+                    width="400"
+                    height="400"
+                />
+                <p class="m-2 p-2"><%= image.description %></p>
+                <% if (image.uploader == user.username || user.role == 'ADMIN') { %>
+                <div
+                    class="card-body p-2 bg- d-flex"
+                    style="justify-content: space-between"
+                >
+                    <a
+                        download="<% image.shortName %>"
+                        href="/<%= image.name %>"
+                        class="btn btn-outline-dark"
+                        style="width: 15rem"
+                    >
+                        <i class="fa fa-download"></i>
+                        Download Image
+                    </a>
+                    <form
+                        action="/user/gallery/<%= image.id %>?_method=DELETE"
+                        method="POST"
+                    >
+                        <button
+                            class="btn btn-outline-danger"
+                            type="submit"
+                            style="width: 15rem"
+                        >
+                            <i class="fa fa-trash"></i>
+                            Remove Image
+                        </button>
+                    </form>
+                </div>
+                <% } else { %>
+                <div
+                    class="card-body p-2 bg- d-flex"
+                >
+                    <a
+                        download="<% image.shortName %>"
+                        href="/<%= image.name %>"
+                        class="btn btn-outline-dark"
+                        style="width: 100%"
+                    >
+                        <i class="fa fa-download"></i>
+                        Download Image
+                    </a>
+                </div>
+                <% } %>
+                <div
+                    class="card-footer text-muted d-flex"
+                    style="justify-content: space-between"
+                >
+                    <h5><%= image.uploader %></h5>
+                    <h5><%= image.createdAt.toLocaleDateString() %></h5>
+                </div>
+            </div>
+        </a>
+    </div>
+    <% }); %>
+</div>

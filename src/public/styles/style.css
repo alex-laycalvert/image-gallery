@@ -1,0 +1,18 @@
+a.card-link {
+    text-decoration: none !important;
+    color: black;
+}
+
+div.card-link {
+    width: 33rem;
+    transition: box-shadow 0.4s, width 0.19s;
+}
+
+div.card-link:hover {
+    width: 34rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.single-photo {
+    width: 60rem;
+}

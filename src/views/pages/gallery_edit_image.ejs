@@ -1,0 +1,84 @@
+<div class="d-flex">
+    <div class="card shadow-sm" style="width: 45%">
+        <div class="card-header text-center text-muted">
+            <h4 class="card-title"><%= image.title %></h4>
+        </div>
+        <img
+            class="card-image"
+            style="width: 100%; height: auto"
+            src="/<%= image.name %>"
+            alt="<%= image.shortName %>"
+            width="400"
+            height="400"
+        />
+    </div>
+    <form
+        class="ms-4"
+        action="/gallery/edit/<%= image.id %>?_method=PUT"
+        method="POST"
+        style="width: 100%"
+    >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend" style="width: 8rem">
+                <span class="input-group-text">Image Title</span>
+            </div>
+            <input
+                type="text"
+                class="form-control"
+                name="title"
+                placeholder="Image Title"
+                value="<%= image.title %>"
+                required
+            />
+        </div>
+        <div class="input-group mb-3" style="height: 10rem">
+            <span class="input-group-text" style="width: 8rem"
+                >Description</span
+            >
+            <textarea
+                name="description"
+                class="form-control"
+                aria-label="Description"
+                placeholder="Story about this image..."
+            >
+<%= image.description %></textarea
+            >
+        </div>
+        <button
+            class="btn btn-outline-primary"
+            type="submit"
+            style="width: 33%"
+        >
+            <i class="fa fa-floppy-o"></i>
+            Save Image Information
+        </button>
+        <a
+            download="<% image.shortName %>"
+            href="/<%= image.name %>"
+            class="btn btn-outline-dark"
+            style="width: 33%"
+        >
+            <i class="fa fa-download"></i>
+            Download Image
+        </a>
+        <button
+            class="btn btn-outline-danger"
+            type="submit"
+            style="width: 33%"
+            onclick="return onClickRemove()"
+        >
+            <i class="fa fa-trash"></i>
+            Remove Image
+        </button>
+    </form>
+</div>
+
+<script language="Javascript">
+    function onClickRemove() {
+        document.singleImageEditForm.action =
+            "/gallery/image/<%= image.id %>?_method=DELETE";
+        document.singleImageEditForm.submit();
+        return true;
+    }
+</script>
+<noscript>You need Javascript enabled for this to work</noscript>

@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="jumbotron p-4 bg-light">
+        <h1 class="display-4">Admin Dashboard</h1>
+    </div>
+
+    <!-- Users -->
+    <div class="row">
+        <div class="dropdown custom-dropdown p-4">
+            <a
+                href="#"
+                class="
+                    align-items-center
+                    dropdown-link dropdown-toggle
+                    display-5
+                "
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true"
+                style="text-decoration: none; color: black"
+            >
+                Users
+            </a>
+            <div class="dropdown-menu" style="width: 100%">
+                <div class="dropdown-item bg-transparent d-flex">
+                    <div class="my-auto" style="width: 25%">User</div>
+                    <div class="my-auto" style="width: 25%">Username</div>
+                    <div class="my-auto" style="width: 25%">Role</div>
+                    <div class="my-auto" style="width: 25%">Delete User?</div>
+                </div>
+                <% users.forEach((aUser) => { %>
+                <div class="dropdown-divider"></div>
+                    <div
+                        class="dropdown-item bg-transparent d-flex"
+                        style="color: black"
+                    >
+                    <div class="my-auto" style="width: 25%">
+                        <%= aUser.name %>
+                    </div>
+                    <div class="my-auto" style="width: 25%">
+                        <%= aUser.username %>
+                    </div>
+                    <div class="my-auto" style="width: 25%">
+                        <%= aUser.role %>
+                    </div>
+                    <form
+                        action="/user/admin/users/<%= aUser.id %>?_method=DELETE"
+                        method="POST"
+                    >
+                        <button class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                            Delete User
+                        </button>
+                    </form>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Images -->
+    <div class="row">
+        <div class="dropdown custom-dropdown p-4">
+            <a
+                href="#"
+                class="
+                    align-items-center
+                    dropdown-link dropdown-toggle
+                    display-5
+                "
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true"
+                style="text-decoration: none; color: black"
+            >
+                Images
+            </a>
+            <div class="dropdown-menu" style="width: 100%">
+                <div class="dropdown-item bg-transparent d-flex">
+                    <div class="my-auto" style="width: 25%">Title</div>
+                    <div class="my-auto" style="width: 25%">Uploader</div>
+                    <div class="my-auto" style="width: 25%">Uploaded On</div>
+                    <div class="my-auto" style="width: 25%">Remove Image?</div>
+                </div>
+                <% images.forEach((image) => { %>
+                <div class="dropdown-divider"></div>
+                <a
+                    href="/gallery/<%= image.slug %>"
+                    class="dropdown-item d-flex"
+                    style="color: black"
+                >
+                    <div class="my-auto" style="width: 25%">
+                        <%= image.title %>
+                    </div>
+                    <div class="my-auto" style="width: 25%">
+                        <%= image.uploader %>
+                    </div>
+                    <div class="my-auto" style="width: 25%">
+                        <%= image.createdAt.toLocaleDateString() %>
+                    </div>
+                    <form
+                        action="/user/gallery/<%= image.id %>?_method=DELETE"
+                        method="POST"
+                    >
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                            Remove Image
+                        </button>
+                    </form>
+                </a>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>
